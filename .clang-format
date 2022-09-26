@@ -1,0 +1,11 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 80
+AccessModifierOffset: -4
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+PointerAlignment: Right
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+IndentCaseLabels: false

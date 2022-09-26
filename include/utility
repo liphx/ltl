@@ -1,0 +1,6 @@
+#ifndef LTL_UTILITY_H_
+#define LTL_UTILITY_H_
+
+#include "detail/utility.h"
+
+#endif  // LTL_UTILITY_H_
