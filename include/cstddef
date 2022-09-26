@@ -1,0 +1,13 @@
+#ifndef LTL_CSTDDEF_H_
+#define LTL_CSTDDEF_H_
+
+#include <stddef.h>
+
+namespace ltl {
+
+using ::ptrdiff_t;
+using ::size_t;
+
+}  // namespace ltl
+
+#endif  // LTL_CSTDDEF_H_

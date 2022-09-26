@@ -1,0 +1,6 @@
+#ifndef LTL_MEMORY_H_
+#define LTL_MEMORY_H_
+
+#include "detail/allocator.h"
+
+#endif  // LTL_MEMORY_H_
