@@ -2,5 +2,6 @@
 #define LTL_MEMORY_H_
 
 #include "detail/allocator.h"
+#include "detail/construct.h"
 
 #endif  // LTL_MEMORY_H_
