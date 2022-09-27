@@ -2,5 +2,6 @@
 #define LTL_ALGORITHM_H_
 
 #include "detail/algorithm.h"
+#include "detail/heap.h"
 
 #endif  // LTL_ALGORITHM_H_
