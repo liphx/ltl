@@ -1,0 +1,6 @@
+#ifndef LTL_QUEUE_H_
+#define LTL_QUEUE_H_
+
+#include "detail/priority_queue.h"
+
+#endif  // LTL_QUEUE_H_
