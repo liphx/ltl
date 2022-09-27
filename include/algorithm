@@ -1,0 +1,6 @@
+#ifndef LTL_ALGORITHM_H_
+#define LTL_ALGORITHM_H_
+
+#include "detail/algorithm.h"
+
+#endif  // LTL_ALGORITHM_H_
