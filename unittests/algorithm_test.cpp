@@ -1,5 +1,7 @@
 #include "algorithm"
 
+#include <forward_list>
+
 #include "gtest/gtest.h"
 
 TEST(algorithm, all_of) {
@@ -15,4 +17,24 @@ TEST(algorithm, for_each) {
     int sum = 0;
     ltl::for_each(data.begin(), data.end(), [&sum](int x) { sum += x; });
     EXPECT_EQ(sum, 6);
+}
+
+TEST(algorithm, is_sorted) {
+    // 向前迭代器
+    std::forward_list<int> data{1, 3, 2};
+    ASSERT_FALSE(ltl::is_sorted(data.begin(), data.end()));
+
+    data.sort();
+    ASSERT_TRUE(ltl::is_sorted(data.begin(), data.end()));
+}
+
+TEST(algorithm, is_sorted_until) {
+    std::forward_list<int> data{1, 3, 2};
+    EXPECT_EQ(ltl::is_sorted_until(data.begin(), data.end()), std::is_sorted_until(data.begin(), data.end()));
+
+    std::forward_list<int> data2{1, 2, 3};
+    EXPECT_EQ(ltl::is_sorted_until(data2.begin(), data2.end()), std::is_sorted_until(data2.begin(), data2.end()));
+
+    std::forward_list<int> data3;
+    EXPECT_EQ(ltl::is_sorted_until(data3.begin(), data3.end()), std::is_sorted_until(data3.begin(), data3.end()));
 }

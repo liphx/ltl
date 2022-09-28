@@ -6,7 +6,12 @@
  * any_of
  * none_of
  * for_each
+ * is_sorted_until
+ * is_sorted
  */
+
+#include <functional>  // less
+#include <iterator>    // iterator_traits
 
 namespace ltl {
 
@@ -41,6 +46,29 @@ constexpr UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f) {
     }
     return f;
 }
+
+/*
+ * 检验范围 [first, last) ，并寻找始于 first 且其中元素已以不降序排序的最大范围。
+ * 返回始于 first 且其中元素已以升序排序的最大范围。即满足范围 [first, it) 已排序的最后迭代器 it 。
+ */
+template <class ForwardIt, class Compare = std::less<typename std::iterator_traits<ForwardIt>::value_type>>
+ForwardIt is_sorted_until(ForwardIt first, ForwardIt last, Compare comp = Compare()) {
+    while (first != last) {
+        ForwardIt prev = first;
+        first++;
+        if (first != last && !comp(*prev, *first)) return first;
+    }
+    return last;
+}
+
+/*
+ * 检查 [first, last) 中的元素是否以不降序排序
+ */
+template <class ForwardIt, class Compare = std::less<typename std::iterator_traits<ForwardIt>::value_type>>
+inline bool is_sorted(ForwardIt first, ForwardIt last, Compare comp = Compare()) {
+    return ltl::is_sorted_until(first, last, comp) == last;
+}
+
 
 }  // namespace ltl
 
