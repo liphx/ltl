@@ -1,4 +1,4 @@
-CPP     = g++ -g -std=c++20 -W -Wall -Werror -Wfatal-errors
+CPP     = g++ -g -std=c++20 -W -Wall -Wextra -Wno-ignored-qualifiers -Werror -Wfatal-errors
 LTL     = -iquote include
 STD     = -Dltl=std
 LDFLAGS = -lgtest -lgtest_main

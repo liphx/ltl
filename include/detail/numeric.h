@@ -1,7 +1,7 @@
 #ifndef LTL_DETAIL_NUMERIC_H_
 #define LTL_DETAIL_NUMERIC_H_
 
-#include <type_traits>  // std::common_type
+#include "type_traits"  // std::common_type
 
 /*
  * accumulate

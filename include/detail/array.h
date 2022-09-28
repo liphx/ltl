@@ -4,9 +4,9 @@
 #include <iterator>
 #include <stdexcept>
 #include <string>
-#include <type_traits>
 
 #include "cstddef"
+#include "type_traits"
 
 namespace ltl {
 
@@ -44,12 +44,8 @@ struct array {
 
     // element access
     constexpr reference operator[](size_type n) { return elements[n]; }
-    constexpr const_reference operator[](size_type n) const {
-        return elements[n];
-    }
-    constexpr reference at(size_type n) {
-        return const_cast<reference>(static_cast<const array&>(*this).at(n));
-    }
+    constexpr const_reference operator[](size_type n) const { return elements[n]; }
+    constexpr reference at(size_type n) { return const_cast<reference>(static_cast<const array&>(*this).at(n)); }
     constexpr const_reference at(size_type n) const {
         if (n >= N) throw std::out_of_range("N is " + std::to_string(N));
         return elements[n];
@@ -61,30 +57,16 @@ struct array {
 
     // iterators
     constexpr iterator begin() noexcept { return iterator(data()); }
-    constexpr const_iterator begin() const noexcept {
-        return const_iterator(data());
-    }
+    constexpr const_iterator begin() const noexcept { return const_iterator(data()); }
     constexpr iterator end() noexcept { return iterator(data() + N); }
-    constexpr const_iterator end() const noexcept {
-        return const_iterator(data() + N);
-    }
-    constexpr reverse_iterator rbegin() noexcept {
-        return reverse_iterator(end());
-    }
-    constexpr const_reverse_iterator rbegin() const noexcept {
-        return const_reverse_iterator(end());
-    }
-    constexpr reverse_iterator rend() noexcept {
-        return reverse_iterator(begin());
-    }
-    constexpr const_reverse_iterator rend() const noexcept {
-        return const_reverse_iterator(begin());
-    }
+    constexpr const_iterator end() const noexcept { return const_iterator(data() + N); }
+    constexpr reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
+    constexpr const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(end()); }
+    constexpr reverse_iterator rend() noexcept { return reverse_iterator(begin()); }
+    constexpr const_reverse_iterator rend() const noexcept { return const_reverse_iterator(begin()); }
     constexpr const_iterator cbegin() const noexcept { return begin(); }
     constexpr const_iterator cend() const noexcept { return end(); }
-    constexpr const_reverse_iterator crbegin() const noexcept {
-        return rbegin();
-    }
+    constexpr const_reverse_iterator crbegin() const noexcept { return rbegin(); }
     constexpr const_reverse_iterator crend() const noexcept { return rend(); }
 
     constexpr T *data() noexcept { return elements; }

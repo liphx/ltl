@@ -1,8 +1,7 @@
 #ifndef LTL_DETAIL_UNIQUE_PTR_H_
 #define LTL_DETAIL_UNIQUE_PTR_H_
 
-#include <type_traits>
-
+#include "type_traits"
 #include "utility"
 
 namespace ltl {
