@@ -3,6 +3,8 @@
 #include "gtest/gtest.h"
 #include "memory"
 
+namespace unique_ptr_test {
+
 int count;
 
 class A {
@@ -50,3 +52,5 @@ TEST(unique_ptr, common) {
     }
     EXPECT_EQ(count, 11);
 }
+
+}  // namespace unique_ptr_test

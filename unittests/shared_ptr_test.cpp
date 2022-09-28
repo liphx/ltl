@@ -1,41 +1,50 @@
-#include <iostream>
 #include <memory>
 
 #include "gtest/gtest.h"
 #define ltl std
 
+namespace shared_ptr_test {
+
+int X = -1;
+
 class A {
 public:
     int x;
     A(int x = 0) : x(x) {}
-    ~A() { std::cout << "~A(" << x << ")" << std::endl; }
+    ~A() { X = x; }
 };
 
-void func(ltl::shared_ptr<A> pa) { std::cout << pa.use_count() << std::endl; }
+int func(ltl::shared_ptr<A> pa) { return pa.use_count(); }
 
-void func_ref(ltl::shared_ptr<A>& pa) { std::cout << pa.use_count() << std::endl; }
+int func_ref(ltl::shared_ptr<A>& pa) { return pa.use_count(); }
 
 TEST(shared_ptr, shared_ptr) {
-    { ltl::shared_ptr<A> pa(new A); }  // ~A(0)
+    { ltl::shared_ptr<A> pa(new A); }
+    EXPECT_EQ(X, 0);
 
     ltl::shared_ptr<A> pa(new A(1));
-    std::cout << pa.use_count() << std::endl;  // 1
+    EXPECT_EQ(pa.use_count(), 1);
     {
         ltl::shared_ptr<A> pa2(pa);
-        std::cout << pa2.use_count() << std::endl;  // 2
+        EXPECT_EQ(pa2.use_count(), 2);
     }
-    std::cout << pa.use_count() << std::endl;  // 1
-    func(pa);                                  // 2 传值
-    func_ref(pa);                              // 1 引用
+    EXPECT_EQ(pa.use_count(), 1);
+    EXPECT_EQ(func(pa), 2);      //  by value
+    EXPECT_EQ(func_ref(pa), 1);  //  by ref
 
     ltl::shared_ptr<A> pa2(pa);
     pa2 = nullptr;
-    std::cout << pa.use_count() << std::endl;  // 1
-    pa.reset(new A(2));                        // ~A(1)
-    pa = nullptr;                              // ~A(2)
+    EXPECT_EQ(pa.use_count(), 1);
+    pa.reset(new A(2));
+    EXPECT_EQ(X, 1);  // ~A(1)
+    pa = nullptr;
+    EXPECT_EQ(X, 2);  // ~A(2)
 
-    auto pa3 = ltl::make_shared<A>(3);
-    std::cout << pa3->x << std::endl;  // 3
-
-    std::cout << "----" << std::endl;
+    {
+        auto pa3 = ltl::make_shared<A>(3);
+        EXPECT_EQ(pa3->x, 3);
+    }
+    EXPECT_EQ(X, 3);
 }
+
+}  // namespace shared_ptr_test
