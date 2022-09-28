@@ -1,5 +1,5 @@
-#ifndef LTL_CSTDDEF_H_
-#define LTL_CSTDDEF_H_
+#ifndef LTL_CSTDDEF_
+#define LTL_CSTDDEF_
 
 #include <stddef.h>
 
@@ -10,4 +10,4 @@ using ::size_t;
 
 }  // namespace ltl
 
-#endif  // LTL_CSTDDEF_H_
+#endif  // LTL_CSTDDEF_
