@@ -94,7 +94,7 @@ private:
 // 若抛出异常，则此函数无效果
 template <typename T, typename... Args>
 inline unique_ptr<T> make_unique(Args&&...args) {
-    return unique_ptr<T>(new T(std::forward<Args>(args)...));
+    return unique_ptr<T>(new T(forward<Args>(args)...));
 }
 
 }  // namespace ltl
