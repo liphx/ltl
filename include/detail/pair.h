@@ -1,10 +1,11 @@
 #ifndef LTL_DETAIL_PAIR_H_
 #define LTL_DETAIL_PAIR_H_
 
-namespace ltl {
+#include <functional>  // std::unwrap_ref_decay_t
 
-#include "type_traits"
 #include "utility"
+
+namespace ltl {
 
 template <class T1, class T2>
 struct pair {
