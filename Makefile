@@ -16,8 +16,10 @@ test_std_all: $(TESTS)
 %_std_test: unittests/%_test.cpp
 	$(CPP) $(STD) -o $@ $^ $(LDFLAGS)
 
+.PHONY: clean
 clean:
-	rm -rf *.o *_test test_all *.dSYM a.out test_std_all
+	rm -rf *.o *_test *.dSYM a.out test_all test_std_all
 
-lint:
+.PHONY: format
+format:
 	clang-format -i unittests/* include/detail/*
