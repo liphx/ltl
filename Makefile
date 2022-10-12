@@ -4,6 +4,9 @@ STD     = -Dltl=std
 LDFLAGS = -lgtest -lgtest_main
 TESTS   = $(wildcard unittests/*_test.cpp)
 
+.PHONY: all
+all: test_all test_std_all
+
 test_all: $(TESTS)
 	$(CPP) $(LTL) -o $@ $^ $(LDFLAGS)
 
