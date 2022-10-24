@@ -8,10 +8,16 @@
  * for_each
  * is_sorted_until
  * is_sorted
+ * lower_bound
+ * upper_bound
+ * binary_search
+ * equal_range
  */
 
 #include <functional>  // less
 #include <iterator>    // iterator_traits
+
+#include "utility"
 
 namespace ltl {
 
@@ -69,6 +75,66 @@ inline bool is_sorted(ForwardIt first, ForwardIt last, Compare comp = Compare())
     return ltl::is_sorted_until(first, last, comp) == last;
 }
 
+template <class ForwardIt, class T, class Compare>
+constexpr ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
+    while (first != last) {
+        auto it = first;
+        auto n = std::distance(first, last);
+        std::advance(it, n / 2);
+        if (comp(*it, value)) {
+            first = ++it;
+        } else {
+            last = it;
+        }
+    }
+    return first;
+}
+
+template <class ForwardIt, class T>
+constexpr ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value) {
+    return ltl::lower_bound(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+}
+
+template <class ForwardIt, class T, class Compare>
+constexpr ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
+    while (first != last) {
+        auto it = first;
+        auto n = std::distance(first, last);
+        std::advance(it, n / 2);
+        if (!comp(value, *it)) {
+            first = ++it;
+        } else {
+            last = it;
+        }
+    }
+    return first;
+}
+
+template <class ForwardIt, class T>
+constexpr ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value) {
+    return ltl::upper_bound(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+}
+
+template <class ForwardIt, class T, class Compare>
+constexpr bool binary_search(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
+    auto it = ltl::lower_bound(first, last, value, comp);
+    return (!(it == last) && !comp(value, *it));
+}
+
+template <class ForwardIt, class T>
+constexpr bool binary_search(ForwardIt first, ForwardIt last, const T& value) {
+    return ltl::binary_search(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+}
+
+template <class ForwardIt, class T, class Compare>
+constexpr pair<ForwardIt, ForwardIt> equal_range(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
+    return make_pair(ltl::lower_bound(first, last, value, comp), ltl::upper_bound(first, last, value, comp));
+}
+
+template <class ForwardIt, class T>
+constexpr pair<ForwardIt, ForwardIt> equal_range(ForwardIt first, ForwardIt last, const T& value) {
+    return ltl::equal_range(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+}
 
 }  // namespace ltl
 

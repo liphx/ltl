@@ -38,3 +38,20 @@ TEST(algorithm, is_sorted_until) {
     std::forward_list<int> data3;
     EXPECT_EQ(ltl::is_sorted_until(data3.begin(), data3.end()), std::is_sorted_until(data3.begin(), data3.end()));
 }
+
+TEST(algorithm, binary_search) {
+    int data[]{1, 3, 6, 6, 9, 12, 13, 15, 15, 17};
+    auto iter = ltl::lower_bound(std::begin(data), std::end(data), 10);
+    EXPECT_EQ(*iter, 12);
+
+    iter = ltl::upper_bound(std::begin(data), std::end(data), 10);
+    EXPECT_EQ(*iter, 12);
+
+    EXPECT_FALSE(ltl::binary_search(std::begin(data), std::end(data), 10));
+
+    auto pair = ltl::equal_range(std::begin(data), std::end(data), 15);
+    EXPECT_EQ(std::distance(pair.first, pair.second), 2);
+    for (auto iter = pair.first; iter != pair.second; ++iter) {
+        EXPECT_EQ(*iter, 15);
+    }
+}
