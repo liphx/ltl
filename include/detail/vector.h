@@ -3,11 +3,10 @@
 
 #include <algorithm>
 #include <initializer_list>
-#include <iostream>
-#include <iterator>
 #include <stdexcept>
 
 #include "cstddef"
+#include "iterator"
 #include "memory"
 
 namespace ltl {
@@ -46,7 +45,7 @@ public:
     }
     template <class InputIterator>
     constexpr vector(InputIterator first, InputIterator last, const Allocator& = Allocator()) {
-        capacity_ = size_ = std::distance(first, last);
+        capacity_ = size_ = ltl::distance(first, last);
         data_ = alloc_.allocate(capacity_);
         for (auto *p = data_; first != last; ++first, ++p) {
             construct_at(p, *first);

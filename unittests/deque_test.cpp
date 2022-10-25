@@ -16,13 +16,13 @@ TEST(deque, deque) {
 
     data4.push_front(0);
     data4.push_back(6);
-	EXPECT_EQ(data4.front(), 0);
-	EXPECT_EQ(data4.back(), 6);
+    EXPECT_EQ(data4.front(), 0);
+    EXPECT_EQ(data4.back(), 6);
     data4.pop_back();
     data4.pop_front();
-	EXPECT_EQ(data4.front(), 1);
-	EXPECT_EQ(data4.back(), 5);
+    EXPECT_EQ(data4.front(), 1);
+    EXPECT_EQ(data4.back(), 5);
 
     data4.assign({10, 11, 12});
-	EXPECT_EQ(data4.size(), 3u);
+    EXPECT_EQ(data4.size(), 3u);
 }

@@ -28,8 +28,8 @@ public:
         ltl::make_heap(c.begin(), c.end(), comp);
     }
     template <class InputIt>
-    priority_queue(InputIt first, InputIt last, const Compare& compare = Compare(),
-                   const Container& cont = Container()) {
+    priority_queue(
+            InputIt first, InputIt last, const Compare& compare = Compare(), const Container& cont = Container()) {
         c = cont;
         comp = compare;
         c.insert(c.end(), first, last);

@@ -18,4 +18,3 @@ constexpr void destroy_at(T *p) {
 }  // namespace ltl
 
 #endif  // LTL_DETAIL_CONSTRUCT_H_
-

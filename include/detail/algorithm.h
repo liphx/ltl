@@ -15,8 +15,8 @@
  */
 
 #include <functional>  // less
-#include <iterator>    // iterator_traits
 
+#include "iterator"
 #include "utility"
 
 namespace ltl {
@@ -57,7 +57,7 @@ constexpr UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f) {
  * 检验范围 [first, last) ，并寻找始于 first 且其中元素已以不降序排序的最大范围。
  * 返回始于 first 且其中元素已以升序排序的最大范围。即满足范围 [first, it) 已排序的最后迭代器 it 。
  */
-template <class ForwardIt, class Compare = std::less<typename std::iterator_traits<ForwardIt>::value_type>>
+template <class ForwardIt, class Compare = std::less<typename iterator_traits<ForwardIt>::value_type>>
 ForwardIt is_sorted_until(ForwardIt first, ForwardIt last, Compare comp = Compare()) {
     while (first != last) {
         ForwardIt prev = first;
@@ -70,7 +70,7 @@ ForwardIt is_sorted_until(ForwardIt first, ForwardIt last, Compare comp = Compar
 /*
  * 检查 [first, last) 中的元素是否以不降序排序
  */
-template <class ForwardIt, class Compare = std::less<typename std::iterator_traits<ForwardIt>::value_type>>
+template <class ForwardIt, class Compare = std::less<typename iterator_traits<ForwardIt>::value_type>>
 inline bool is_sorted(ForwardIt first, ForwardIt last, Compare comp = Compare()) {
     return ltl::is_sorted_until(first, last, comp) == last;
 }
@@ -79,8 +79,8 @@ template <class ForwardIt, class T, class Compare>
 constexpr ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
     while (first != last) {
         auto it = first;
-        auto n = std::distance(first, last);
-        std::advance(it, n / 2);
+        auto n = distance(first, last);
+        advance(it, n / 2);
         if (comp(*it, value)) {
             first = ++it;
         } else {
@@ -92,15 +92,15 @@ constexpr ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value,
 
 template <class ForwardIt, class T>
 constexpr ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value) {
-    return ltl::lower_bound(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+    return ltl::lower_bound(first, last, value, std::less<typename iterator_traits<ForwardIt>::value_type>());
 }
 
 template <class ForwardIt, class T, class Compare>
 constexpr ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp) {
     while (first != last) {
         auto it = first;
-        auto n = std::distance(first, last);
-        std::advance(it, n / 2);
+        auto n = distance(first, last);
+        advance(it, n / 2);
         if (!comp(value, *it)) {
             first = ++it;
         } else {
@@ -112,7 +112,7 @@ constexpr ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value,
 
 template <class ForwardIt, class T>
 constexpr ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value) {
-    return ltl::upper_bound(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+    return ltl::upper_bound(first, last, value, std::less<typename iterator_traits<ForwardIt>::value_type>());
 }
 
 template <class ForwardIt, class T, class Compare>
@@ -123,7 +123,7 @@ constexpr bool binary_search(ForwardIt first, ForwardIt last, const T& value, Co
 
 template <class ForwardIt, class T>
 constexpr bool binary_search(ForwardIt first, ForwardIt last, const T& value) {
-    return ltl::binary_search(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+    return ltl::binary_search(first, last, value, std::less<typename iterator_traits<ForwardIt>::value_type>());
 }
 
 template <class ForwardIt, class T, class Compare>
@@ -133,7 +133,7 @@ constexpr pair<ForwardIt, ForwardIt> equal_range(ForwardIt first, ForwardIt last
 
 template <class ForwardIt, class T>
 constexpr pair<ForwardIt, ForwardIt> equal_range(ForwardIt first, ForwardIt last, const T& value) {
-    return ltl::equal_range(first, last, value, std::less<typename std::iterator_traits<ForwardIt>::value_type>());
+    return ltl::equal_range(first, last, value, std::less<typename iterator_traits<ForwardIt>::value_type>());
 }
 
 }  // namespace ltl

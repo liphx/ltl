@@ -10,3 +10,4 @@ ReferenceAlignment: Left
 DerivePointerAlignment: false
 IndentCaseLabels: false
 AlignAfterOpenBracket: DontAlign
+SortUsingDeclarations: false

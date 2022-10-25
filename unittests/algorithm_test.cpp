@@ -50,7 +50,7 @@ TEST(algorithm, binary_search) {
     EXPECT_FALSE(ltl::binary_search(std::begin(data), std::end(data), 10));
 
     auto pair = ltl::equal_range(std::begin(data), std::end(data), 15);
-    EXPECT_EQ(std::distance(pair.first, pair.second), 2);
+    EXPECT_EQ(ltl::distance(pair.first, pair.second), 2);
     for (auto iter = pair.first; iter != pair.second; ++iter) {
         EXPECT_EQ(*iter, 15);
     }

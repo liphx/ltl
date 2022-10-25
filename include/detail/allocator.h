@@ -29,9 +29,7 @@ public:
 
     ~allocator() noexcept {}
 
-    constexpr T *allocate(size_t n) {
-        return static_cast<T *>(::operator new(n * sizeof(T)));
-    }
+    constexpr T *allocate(size_t n) { return static_cast<T *>(::operator new(n * sizeof(T))); }
     constexpr void deallocate(T *p, size_t) { ::operator delete(p); }
 };
 
